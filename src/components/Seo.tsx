@@ -15,7 +15,8 @@ const defaultMeta = {
    * No need to be filled, will be populated with openGraph function
    * If you wish to use a normal image, just specify the path below
    */
-  image: '/images/case-converter-og.png',
+  image:
+    'https://case-converter.utility.datsukan.me/images/case-converter-og.png',
 };
 
 type SeoProps = {
