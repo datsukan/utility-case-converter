@@ -20,6 +20,8 @@ import Seo from '@/components/Seo';
 // Before you begin editing, follow all comments with `STARTERCONF`,
 // to customize the default configuration.
 
+const delayTime = 3000;
+
 export default function HomePage() {
   const [mode, setMode] = useState<'dark' | 'light'>('light');
   function toggleMode() {
@@ -94,8 +96,8 @@ export default function HomePage() {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(targetString).then(
-      (success) => alert('successfully copied 😆'),
-      (error) => alert('Failed to copy 😫')
+      (_success) => successfullyCopied(),
+      (_error) => failedToCopy()
     );
   };
 
@@ -106,6 +108,17 @@ export default function HomePage() {
   const setSample = () => {
     const sampleValue = 'Convert string format';
     updateValue(sampleValue);
+  };
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showFailedMessage, setShowFailedMessage] = useState(false);
+  const successfullyCopied = () => {
+    setShowSuccessMessage(true);
+    setTimeout(() => setShowSuccessMessage(false), delayTime);
+  };
+  const failedToCopy = () => {
+    setShowFailedMessage(true);
+    setTimeout(() => setShowFailedMessage(false), delayTime);
   };
 
   return (
@@ -147,7 +160,7 @@ export default function HomePage() {
             <div className='my-12 flex w-full flex-col gap-6'>
               <div>
                 <h2 className='md:text-lg'>Target string</h2>
-                <div className='mt-2 flex flex-wrap gap-2'>
+                <div className='mt-2 flex flex-wrap items-center gap-2'>
                   <Button variant='light' onClick={() => clear()}>
                     Clear
                   </Button>
@@ -160,6 +173,16 @@ export default function HomePage() {
                   <Button variant='light' onClick={() => setSample()}>
                     Sample
                   </Button>
+                  {showSuccessMessage && (
+                    <span className='text-xs text-green-600'>
+                      successfully copied 😆
+                    </span>
+                  )}
+                  {showFailedMessage && (
+                    <span className='text-xs text-red-600'>
+                      Failed to copy 😫
+                    </span>
+                  )}
                 </div>
                 <textarea
                   placeholder='e.g.) Convert string format'
