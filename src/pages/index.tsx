@@ -187,7 +187,7 @@ export default function HomePage() {
                 <textarea
                   placeholder='e.g.) Convert string format'
                   rows={4}
-                  className='mt-2 w-full rounded-md'
+                  className='mt-2 w-full rounded-md text-black'
                   value={targetString}
                   onChange={(e) => updateValue(e.target.value)}
                 />
